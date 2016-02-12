@@ -1,6 +1,7 @@
 package org.parth.samples.messenger.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,8 @@ public class MessageService {
 	
 	public MessageService(){
 		
-		messages.put(1L,  new Message(1,"Hello World", "Parth"));
-		messages.put(2L,  new Message(2,"Hello Siddharth", "Parth"));
+		messages.put(1L,  new Message(1,"Hello World",new Date(), "Parth"));
+		messages.put(2L,  new Message(2,"Hello Siddharth",new Date(), "Parth"));
 
 	}
 	
