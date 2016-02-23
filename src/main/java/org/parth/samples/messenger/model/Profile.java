@@ -34,8 +34,8 @@ public class Profile {
 	public String getProfileName() {
 		return profileName;
 	}
-	public void setProfileName(String profileName) {
-		this.profileName = profileName;
+	public void setProfileName(String profileName2) {
+		this.profileName = profileName2;
 	}
 	public String getFirstName() {
 		return firstName;
