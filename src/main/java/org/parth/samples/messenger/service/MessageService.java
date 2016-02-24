@@ -1,6 +1,7 @@
 package org.parth.samples.messenger.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,30 @@ public class MessageService {
 		return new ArrayList<Message>(messages.values());
 		
 	}
+	
+	public List<Message> getAllMessagesForYear(int year){
+		List<Message> messagesForYear = new ArrayList<Message>();
+		Calendar c = Calendar.getInstance();
+		
+		for(Message message:messages.values()){
+			c.setTime(message.getCreated());
+			if(c.get(Calendar.YEAR)==year)
+				messagesForYear.add(message); 
+		}
+		
+		return messagesForYear;
+		
+	}
+	
+	public List<Message> getAllMessagesPaginated(int start, int size){
+		
+		ArrayList<Message> list = new ArrayList<Message>(messages.values());
+		
+		//check is messages size is less than asked
+		if(list.size()<start+size) return new ArrayList<Message>();
+		
+		return list.subList(start, start+size);
+	} 
 	
 	public Message getMessage(long id){
 		return (messages.get(id));
