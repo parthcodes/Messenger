@@ -17,12 +17,14 @@ import org.parth.samples.messenger.model.Message;
 import org.parth.samples.messenger.service.MessageService;
 
 @Path("/messages")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+
 public class MessageResource {
 	
 	MessageService messageService = new MessageService();
 	
 @GET
-@Produces(MediaType.APPLICATION_JSON)
 public List<Message> getMessages(@QueryParam("year") int year,
 									@QueryParam("start") int start,
 									@QueryParam("size") int size){
@@ -37,8 +39,7 @@ public List<Message> getMessages(@QueryParam("year") int year,
 }
 
 @POST
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+
 public Message addMesssage(Message message){
 
 	return messageService.addMessage(message); 
@@ -46,8 +47,7 @@ public Message addMesssage(Message message){
 
 @PUT
 @Path("/{messageId}")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+
 public Message updateMessage(@PathParam("messageId") long messageId, Message message){
 	message.setId(messageId);
 	return messageService.updateMessage(message);
@@ -55,7 +55,7 @@ public Message updateMessage(@PathParam("messageId") long messageId, Message mes
 
 @DELETE
 @Path("/{messageId}")
-@Produces(MediaType.APPLICATION_JSON)
+
 public void deleteMessage(@PathParam("messageId") long messageId){
 	messageService.removeMessage(messageId);
 }
@@ -63,11 +63,15 @@ public void deleteMessage(@PathParam("messageId") long messageId){
 
 @GET
 @Path("/{messageId}")
-@Produces(MediaType.APPLICATION_JSON)   
-public Message test(@PathParam("messageId") long messageId){
+public Message getMessage(@PathParam("messageId") long messageId){
 	return messageService.getMessage(messageId);
 }
 
+
+@Path("/{messageId}/comments/")
+public CommentResource getCommentResource(){
+	return new CommentResource();
+	}
 
 } 
  
