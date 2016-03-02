@@ -1,5 +1,7 @@
 package org.parth.samples.messenger.resources;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,9 +14,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.parth.samples.messenger.model.Message;
 import org.parth.samples.messenger.service.MessageService;
+
 
 @Path("/messages")
 @Produces(MediaType.APPLICATION_JSON)
@@ -40,9 +45,11 @@ public List<Message> getMessages(@QueryParam("year") int year,
 
 @POST
 
-public Message addMesssage(Message message){
+public Response addMesssage(Message message) throws URISyntaxException{
 
-	return messageService.addMessage(message); 
+	Message newMessage = messageService.addMessage(message); 
+	return Response.created(new URI("/messenger/webapi/messages/"+newMessage.getId())).entity(newMessage).build();
+	
 }
 
 @PUT
