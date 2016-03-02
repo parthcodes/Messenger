@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.parth.samples.messenger.database.DatabaseClass;
+import org.parth.samples.messenger.exception.DataNotFoundException;
 import org.parth.samples.messenger.model.*;
 public class MessageService {
 	
@@ -49,7 +50,10 @@ public class MessageService {
 	} 
 	
 	public Message getMessage(long id){
-		return (messages.get(id));
+		Message message = messages.get(id);
+		if(message == null) throw new DataNotFoundException("Message with id= "+ id +" not found!");
+		else
+		return (message);
 	}
 	public Message addMessage(Message message){
 		message.setId(messages.size()+1);
