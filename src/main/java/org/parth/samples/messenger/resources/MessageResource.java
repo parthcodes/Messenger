@@ -13,9 +13,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
 import org.parth.samples.messenger.model.Message;
 import org.parth.samples.messenger.service.MessageService;
@@ -45,11 +47,11 @@ public List<Message> getMessages(@QueryParam("year") int year,
 
 @POST
 
-public Response addMesssage(Message message) throws URISyntaxException{
+public Response addMesssage(Message message, @Context UriInfo uriInfo) throws URISyntaxException{
 
 	Message newMessage = messageService.addMessage(message); 
-	return Response.created(new URI("/messenger/webapi/messages/"+newMessage.getId())).entity(newMessage).build();
-	
+	return Response.created(new URI(uriInfo.getAbsolutePath().toString()+newMessage.getId())).entity(newMessage).build();
+	 
 }
 
 @PUT
