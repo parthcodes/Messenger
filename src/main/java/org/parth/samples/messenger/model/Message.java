@@ -1,6 +1,8 @@
 package org.parth.samples.messenger.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,7 +13,14 @@ public class Message {
 	private String message;
 	private Date created;
 	private String author;
+	private List<Link> links = new ArrayList<>();
 	
+	public List<Link> getLinks() {
+		return links;
+	}
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
 	public Message(){
 		
 	}
@@ -50,5 +59,12 @@ public class Message {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	
+	public void addLink(String url, String rel){
+		Link link = new Link();
+		link.setLink(url);
+		link.setRel(rel);
+		links.add(link);
 	}
 }

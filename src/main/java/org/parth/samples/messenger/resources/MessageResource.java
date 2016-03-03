@@ -62,7 +62,7 @@ public Message updateMessage(@PathParam("messageId") long messageId, Message mes
 	return messageService.updateMessage(message);
 }
 
-@DELETE
+@DELETE 
 @Path("/{messageId}")
 
 public void deleteMessage(@PathParam("messageId") long messageId){
@@ -72,8 +72,17 @@ public void deleteMessage(@PathParam("messageId") long messageId){
 
 @GET
 @Path("/{messageId}")
-public Message getMessage(@PathParam("messageId") long messageId){
-	return messageService.getMessage(messageId);
+public Message getMessage(@Context UriInfo uriInfo, @PathParam("messageId") long messageId){
+	Message message = messageService.getMessage(messageId);
+	getUriInfo(uriInfo, message);
+	
+	return message;
+	
+	
+}
+
+private void getUriInfo(UriInfo uriInfo, Message message) {
+	message.addLink(uriInfo.getAbsolutePath().toString(), "self");
 }
 
 
