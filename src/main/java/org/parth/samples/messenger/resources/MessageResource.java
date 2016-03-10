@@ -24,7 +24,7 @@ import org.parth.samples.messenger.service.MessageService;
 
 
 @Path("/messages")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(value={MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 @Consumes(MediaType.APPLICATION_JSON)
 
 public class MessageResource {
