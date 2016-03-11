@@ -24,15 +24,16 @@ import org.parth.samples.messenger.service.MessageService;
 
 
 @Path("/messages")
-@Produces(value={MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(value={MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 
 public class MessageResource {
 	
 	MessageService messageService = new MessageService();
 	
 @GET
-public List<Message> getMessages(@QueryParam("year") int year,
+@Produces(MediaType.APPLICATION_JSON)
+public List<Message> getJsonMessages(@QueryParam("year") int year,
 									@QueryParam("start") int start,
 									@QueryParam("size") int size){
 	if(year>0){
@@ -44,6 +45,23 @@ public List<Message> getMessages(@QueryParam("year") int year,
 	}
 	return messageService.getAllMessages();
 }
+
+@GET
+@Produces(MediaType.TEXT_XML)
+public List<Message> getXmlMessages(@QueryParam("year") int year,
+		@QueryParam("start") int start,
+		@QueryParam("size") int size){
+if(year>0){
+return	messageService.getAllMessagesForYear(year);
+}
+if(start >=0 && size>=0){
+return	messageService.getAllMessagesPaginated(start, size);
+
+}
+return messageService.getAllMessages();
+}
+
+
 
 @POST
 
